@@ -17,7 +17,7 @@ namespace DatingAppProject.Controllers
         {
 
             _context = context;
-            
+
         }
 
         [HttpPost("register")] // POST: api/account/register?username=dave&password=pwd
@@ -39,15 +39,13 @@ namespace DatingAppProject.Controllers
 
             return user;
         }
-      /*  private async Task<bool> (string username)
+
+
+        private async Task<bool> UserExists(String userName)
         {
-            return await _context.Users.AnyAsync(x => x.UserName == username.ToLower());
-        }*/
-
-        private async Task<bool> UserExists (String userName)
-    {
             return await _context.Users.AnyAsync(u => u.UserName == userName.ToLower());
-    }
+        }
 
-    
+
+    }
 }
