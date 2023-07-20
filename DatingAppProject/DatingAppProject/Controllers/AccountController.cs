@@ -41,10 +41,29 @@ namespace DatingAppProject.Controllers
         }
 
 
+        [HttpPost("login")]
+        public async Task<ActionResult<AppUser>> login (LoginDto login)
+        {
+            var user = await _context.Users.SingleOrDefaultAsync(u => u.UserName == login.UserNAme);
+            if (user == null) return Unauthorized("Invalid UserName");
+            using var hmac = new HMACSHA512(user.PasswordSalt);
+
+            byte[] computeHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(login.Password));
+            for (int i = 0; i < computeHash.Length; i++)
+            {
+                if (computeHash[i] != user.PasswordHash[i]) return Unauthorized("Invalid password");
+
+            }
+            return user;
+        }
+
+
         private async Task<bool> UserExists(String userName)
         {
             return await _context.Users.AnyAsync(u => u.UserName == userName.ToLower());
         }
+
+
 
 
     }
