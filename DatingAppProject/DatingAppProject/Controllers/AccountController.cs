@@ -1,6 +1,7 @@
 ﻿using DatingAppProject.Data;
 using DatingAppProject.DTOs;
 using DatingAppProject.Entities;
+using DatingAppProject.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SQLitePCL;
@@ -12,16 +13,17 @@ namespace DatingAppProject.Controllers
     public class AccountController : BaseApiController
     {
         private DataContext _context;
-
-        public AccountController(DataContext context)
+        private ITokenService _tokenService;
+        public AccountController(DataContext context,ITokenService token)
         {
 
             _context = context;
+            _tokenService=token;
 
         }
 
         [HttpPost("register")] // POST: api/account/register?username=dave&password=pwd
-        public async Task<ActionResult<AppUser>> Register(RegisterDto registerDto)
+        public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {
             if (await UserExists(registerDto.UserNAme)) return BadRequest("Username is taken");
 
@@ -36,13 +38,16 @@ namespace DatingAppProject.Controllers
 
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
-
-            return user;
+            return new UserDto
+            {
+                Username = user.UserName,
+                Token = _tokenService.CreateToken(user)
+            }; 
         }
 
 
         [HttpPost("login")]
-        public async Task<ActionResult<AppUser>> login (LoginDto login)
+        public async Task<ActionResult<UserDto>> login (LoginDto login)
         {
             var user = await _context.Users.SingleOrDefaultAsync(u => u.UserName == login.UserNAme);
             if (user == null) return Unauthorized("Invalid UserName");
@@ -54,7 +59,11 @@ namespace DatingAppProject.Controllers
                 if (computeHash[i] != user.PasswordHash[i]) return Unauthorized("Invalid password");
 
             }
-            return user;
+            return new UserDto
+            {
+                Username = user.UserName,
+                Token = _tokenService.CreateToken(user)
+            };
         }
 
 
