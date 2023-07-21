@@ -11,7 +11,7 @@ using System.Text;
 
 namespace DatingAppProject.Controllers
 {
-    [Authorize]
+    [AllowAnonymous]
     public class AccountController : BaseApiController
     {
         private DataContext _context;
