@@ -2,6 +2,7 @@
 using DatingAppProject.DTOs;
 using DatingAppProject.Entities;
 using DatingAppProject.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SQLitePCL;
@@ -10,6 +11,7 @@ using System.Text;
 
 namespace DatingAppProject.Controllers
 {
+    [Authorize]
     public class AccountController : BaseApiController
     {
         private DataContext _context;
@@ -23,6 +25,7 @@ namespace DatingAppProject.Controllers
         }
 
         [HttpPost("register")] // POST: api/account/register?username=dave&password=pwd
+        [AllowAnonymous]
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {
             if (await UserExists(registerDto.UserNAme)) return BadRequest("Username is taken");
