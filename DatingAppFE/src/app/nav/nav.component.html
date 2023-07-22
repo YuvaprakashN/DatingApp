@@ -1,10 +1,10 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Dating App</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarCollapse">
+      <div class="collapse navbar-collapse" id="navbarCollapse"> -->
         <ul class="navbar-nav me-auto mb-2 mb-md-0" *ngIf="loggedIn">
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="#">Matches</a>
@@ -22,9 +22,9 @@
 
        
 
-        <div class="dropdown" *ngIf="loggedIn">
-          <a class="dropdown-toggle text-light">Welcome, user</a>
-          <div class="dropdown-menu">
+        <div class="dropdown" *ngIf="loggedIn" dropdown>
+          <a class="dropdown-toggle text-light" dropdownToggle  >Welcome, user</a>
+          <div class="dropdown-menu" *dropdownMenu >
             <a class="dropdown-item">Edit Profile</a>
             <a class="dropdown-item" (click)="logout()">Logout</a>
           </div>
@@ -43,6 +43,6 @@
           placeholder="Password" >
           <button class="btn btn-outline-success" type="submit">Login</button>
         </form>
-      </div>
+      <!-- </div> -->
     </div>
   </nav>
