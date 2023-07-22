@@ -5,7 +5,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+        <ul class="navbar-nav me-auto mb-2 mb-md-0" *ngIf="loggedIn">
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="#">Matches</a>
           </li>
@@ -13,10 +13,24 @@
             <a class="nav-link" href="#">Lists</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link disabled">Messages</a>
+            <a class="nav-link ">Messages</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " (click)="logout()">LogOut</a>
           </li>
         </ul>
-        <form class="d-flex" #loginForm="ngForm" (ngSubmit)="login()">
+
+       
+
+        <div class="dropdown" *ngIf="loggedIn">
+          <a class="dropdown-toggle text-light">Welcome, user</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item">Edit Profile</a>
+            <a class="dropdown-item" (click)="logout()">Logout</a>
+          </div>
+
+        </div> 
+        <form class="d-flex" #loginForm="ngForm" (ngSubmit)="login()" *ngIf="!loggedIn">
           <input class="form-control me-2" 
           name="username"
           [(ngModel)]="model.username"

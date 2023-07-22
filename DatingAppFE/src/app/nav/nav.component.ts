@@ -24,7 +24,11 @@ this.loggedIn=true;
       error: err=>console.log(err)
       
     })
+ 
     
+  }
+  logout(){
+    this.loggedIn=false;
   }
 
 }
