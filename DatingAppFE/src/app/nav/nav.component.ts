@@ -15,6 +15,15 @@ loggedIn:boolean=false;
   ngOnInit(): void {
   }
 
+  getCurrentUser(){
+    this.accountService.currentUser$.subscribe({
+      next: user => {this.loggedIn=!!user; console.log(user);console.log(!!user);
+      
+      },
+error:err=>console.log(err)
+
+    })
+  }
   login(){
     this.accountService.login(this.model).subscribe({
       next: res => {
@@ -29,6 +38,10 @@ this.loggedIn=true;
   }
   logout(){
     this.loggedIn=false;
+    this.accountService.logout();
   }
+
+
+  
 
 }
