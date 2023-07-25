@@ -30,4 +30,8 @@ getUsers(){
        complete:()=>console.log("Req complted")
      })
  }
+
+ cancelRegisterMode(event:boolean){
+this.registerMode=event;
+ }
 }

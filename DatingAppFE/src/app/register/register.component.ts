@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-register',
@@ -11,6 +11,8 @@ export class RegisterComponent {
   model: any = {}
 
 @Input() userFromHomeComp:any;
+@Output() cancelRegisterEmitter=new EventEmitter();
+
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
@@ -21,6 +23,7 @@ export class RegisterComponent {
   }
   cancel(){
     console.log("Cancelled");
+    this.cancelRegisterEmitter.emit(false);
     
   }
 
