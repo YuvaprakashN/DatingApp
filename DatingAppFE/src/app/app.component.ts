@@ -13,22 +13,14 @@ export class AppComponent implements OnInit{
   host:string="http://localhost:5125/";
   title = 'dating-app-fe';
 
-  users:any;
+  // users:any;
   constructor(private http:HttpClient,private accountService:AccountService){}
   ngOnInit(): void {
     
-   this.getUsers();
+  //  this.getUsers();
     this.setCurrentUser();
   }
 
-getUsers(){
- this.http.get(this.host+"api/users").subscribe({
-      next:res=>{this.users=res;console.log(this.users);
-      },
-      error:err=>console.log(err),
-      complete:()=>console.log("Req complted")
-    })
-}
 
   setCurrentUser() {
     //const user1: User =JSON.parse(localStorage.getItem('user')!);

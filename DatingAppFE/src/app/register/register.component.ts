@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-register',
@@ -10,7 +10,7 @@ export class RegisterComponent {
   registerMode = false;
   model: any = {}
 
-
+@Input() userFromHomeComp:any;
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
