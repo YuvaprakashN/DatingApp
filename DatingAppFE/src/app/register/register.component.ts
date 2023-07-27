@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { AccountService } from '../_services/account.service';
 
 @Component({
   selector: 'app-register',
@@ -13,7 +14,7 @@ export class RegisterComponent {
 @Input() userFromHomeComp:any;
 @Output() cancelRegisterEmitter=new EventEmitter();
 
-  constructor(private http: HttpClient) { }
+  constructor(private accountService:AccountService) { }
 
   ngOnInit(): void {
   }
@@ -29,7 +30,12 @@ export class RegisterComponent {
 
   register(){
     console.log(this.model);
-    
+    this.accountService.register(this.model).subscribe({
+      next: () => {
+        this.cancel();
+      },
+      error: error => console.log(error)
+    })
   }
 
 }
