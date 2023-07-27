@@ -32,7 +32,6 @@ export class NavComponent implements OnInit {
   login(){
     this.accountService.login(this.model).subscribe({
       next: res => {
-        console.log(res);
 //this.loggedIn=true;
       },
       error: err=>console.log(err)
