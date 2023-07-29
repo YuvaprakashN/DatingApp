@@ -14,6 +14,8 @@ export class HomeComponent {
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
+    console.log("Home Compoennt Loaded");
+    
    this.getUsers();
   }
 
