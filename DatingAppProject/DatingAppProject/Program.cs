@@ -1,5 +1,6 @@
 using DatingAppProject.Data;
 using DatingAppProject.Interfaces;
+using DatingAppProject.Middleware;
 using DatingAppProject.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -35,7 +36,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     };
                 });
 var app = builder.Build();
-
+ 
 // Configure the HTTP request pipeline.
 /*if (app.Environment.IsDevelopment())
 {
@@ -45,7 +46,7 @@ var app = builder.Build();
 
 app.UseHttpsRedirection();
 
-
+app.UseMiddleware<ExceptionMiddleware>();
 app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200"));
 app.UseAuthentication();
 app.UseAuthorization();
