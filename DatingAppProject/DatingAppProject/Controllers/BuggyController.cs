@@ -34,17 +34,17 @@ namespace DatingAppProject.Controllers
         [HttpGet("server-error")]
         public ActionResult<string> GetServerError()
         {
-            try
-            {
+           /* try
+            {*/
                 var thing = _context.Users.Find(-1);
 
                 var thingToReturn = thing.ToString();
 
                 return thingToReturn;
-            }
-            catch(Exception e) {
-                return StatusCode(500, "Internal Server error");
-            }
+            /* }
+             catch(Exception e) {
+                 return StatusCode(500, "Internal Server error");
+             }*/
         }
 
         [HttpGet("bad-request")]
