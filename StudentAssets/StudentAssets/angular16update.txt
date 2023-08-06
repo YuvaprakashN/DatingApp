@@ -1,0 +1,103 @@
+ng update
+
+
+
+===
+authGuard.ts (covered in lesson 68)
+===
+import { inject } from '@angular/core';
+import { CanActivateFn } from '@angular/router';
+import { AccountService } from '../_services/account.service';
+import { ToastrService } from 'ngx-toastr';
+import { map } from 'rxjs';
+
+export const authGuard: CanActivateFn = (route, state) => {
+  const accountService = inject(AccountService);
+  const toastr = inject(ToastrService);
+
+  return accountService.currentUser$.pipe(
+    map(user => {
+      if (user) return true;
+      else {
+        toastr.error('you shall not pass!');
+        return false;
+      }
+    })
+  )
+};
+===
+preventUnsavedChanges (covered in lesson 117)
+===
+import { CanDeactivateFn } from '@angular/router';
+import { MemberEditComponent } from '../members/member-edit/member-edit.component';
+import { inject } from '@angular/core';
+import { ConfirmService } from '../_services/confirm.service';
+
+export const preventUnsavedChangesGuard: CanDeactivateFn<MemberEditComponent> = (component) => {
+  const confirmService = inject(ConfirmService);
+  
+  if (component.editForm?.dirty) {
+    return confirmService.confirm();
+  }
+  
+  return true;
+};
+===
+memberDetailedResolver (covered in lesson 193)
+===
+import { ResolveFn } from '@angular/router';
+import { Member } from '../_models/member';
+import { inject } from '@angular/core';
+import { MembersService } from '../_services/members.service';
+
+export const memberDetailedResolver: ResolveFn<Member> = (route, state) => {
+  const memberService = inject(MembersService);
+
+  return memberService.getMember(route.paramMap.get('username')!)
+};
+===
+adminGuard (covered in lesson 212)
+===
+import { inject } from '@angular/core';
+import { CanActivateFn } from '@angular/router';
+import { AccountService } from '../_services/account.service';
+import { ToastrService } from 'ngx-toastr';
+import { map } from 'rxjs';
+
+export const adminGuard: CanActivateFn = (route, state) => {
+  const accountService = inject(AccountService);
+  const toastr = inject(ToastrService);
+
+  return accountService.currentUser$.pipe(
+    map(user => {
+      if (!user) return false;
+      if (user.roles.includes('Admin') || user.roles.includes('Moderator')) {
+        return true;
+      } else {
+        toastr.error('You cannot enter this area');
+        return false;
+      }
+    })
+  )
+};
+===
+CustomRouteReuseStrategy (covered in lesson 223)
+===
+import { ActivatedRouteSnapshot, DetachedRouteHandle, RouteReuseStrategy } from "@angular/router";
+
+export class CustomRouteReuseStrategy implements RouteReuseStrategy {
+    shouldDetach(route: ActivatedRouteSnapshot): boolean {
+        return false;
+    }
+    store(route: ActivatedRouteSnapshot, handle: DetachedRouteHandle | null): void {
+    }
+    shouldAttach(route: ActivatedRouteSnapshot): boolean {
+        return false;
+    }
+    retrieve(route: ActivatedRouteSnapshot): DetachedRouteHandle | null {
+        return null;
+    }
+    shouldReuseRoute(future: ActivatedRouteSnapshot, curr: ActivatedRouteSnapshot): boolean {
+        return false;
+    }
+}
