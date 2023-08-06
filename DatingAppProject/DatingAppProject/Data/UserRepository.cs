@@ -1,9 +1,10 @@
 ﻿using DatingAppProject.Entities;
+using DatingAppProject.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace DatingAppProject.Data
 {
-    public class UserRepository
+    public class UserRepository:IUserRepository
     {
         private readonly DataContext _context;
 
@@ -16,6 +17,7 @@ namespace DatingAppProject.Data
         {
             return await _context.Users
                 .Where(x => x.UserName == username)
+                .Include(p=>p.Photos)
                 .SingleOrDefaultAsync();
         }
 
