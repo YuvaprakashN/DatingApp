@@ -27,10 +27,10 @@ namespace DatingAppProject.Controllers
         
         public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers()
         {
-            var users = await _userRepository.GetMembersAsync();
+            /*var users = await _userRepository.GetMembersAsync();
             var userToReturn=_mapper.Map<IEnumerable<MemberDto>>(users);
-
-            return Ok(userToReturn);
+*/
+            return Ok(await _userRepository.GetMembersAsync());
 
         }
 
@@ -38,8 +38,8 @@ namespace DatingAppProject.Controllers
 
         public async Task<ActionResult<MemberDto>> GetUser(string username)
         {
-            var user =await _userRepository.GetMemberAsync(username);
-            return  _mapper.Map<MemberDto>(user);
+            //var user =await _userRepository.GetUserByUsernameAsync(username);
+            return await _userRepository.GetMemberAsync(username);
         }
     }
 }
