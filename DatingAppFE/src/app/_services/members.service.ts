@@ -12,7 +12,7 @@ export class MembersService {
   constructor(private http:HttpClient) { }
 
   getMembers(){
-    this.http.get<Member[]>(this.baseUrl+"users",this.getOptions());
+  return   this.http.get<Member[]>(this.baseUrl+"users",this.getOptions());
   }
 
   getMember(userName:string){
@@ -20,10 +20,12 @@ export class MembersService {
   }
 
   getOptions(){
-    var userString=localStorage.getItem("users");
+    var userString=localStorage.getItem("user");
+    console.log(userString);
     if(!userString) return;
 
     const user=JSON.parse(userString);
+console.log(user);
 
     return {
       headers: new HttpHeaders({Authorization:"Bearer "+user.token})

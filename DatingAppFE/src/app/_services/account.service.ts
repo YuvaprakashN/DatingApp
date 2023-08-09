@@ -15,7 +15,7 @@ private currentUserSource = new BehaviorSubject<User | null>(null);
   constructor(private http:HttpClient) { }
 
   login(model:User){
-    return this.http.post<User>(this.baseUrl+'/account/login',model)
+    return this.http.post<User>(this.baseUrl+'account/login',model)
     .pipe(
       map((res:User)=> {
       const user=res;
@@ -26,7 +26,7 @@ private currentUserSource = new BehaviorSubject<User | null>(null);
   }
   
   register(model: any) {
-    return this.http.post<User>(this.baseUrl + '/account/register', model).pipe(
+    return this.http.post<User>(this.baseUrl + 'account/register', model).pipe(
       map((user:User) => {
         if (user) {
           localStorage.setItem('user', JSON.stringify(user));

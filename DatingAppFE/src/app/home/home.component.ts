@@ -16,7 +16,7 @@ export class HomeComponent {
   ngOnInit(): void {
     console.log("Home Compoennt Loaded");
     
-   this.getUsers();
+   //this.getUsers();
   }
 
   registerToggle() {
@@ -24,14 +24,14 @@ export class HomeComponent {
   }
 
   
-getUsers(){
-  this.http.get(this.host+"api/users").subscribe({
-       next:res=>{this.users=res;console.log(this.users);
-       },
-       error:err=>console.log(err),
-       complete:()=>console.log("Req complted")
-     })
- }
+// getUsers(){
+//   this.http.get(this.host+"api/users").subscribe({
+//        next:res=>{this.users=res;console.log(this.users);
+//        },
+//        error:err=>console.log(err),
+//        complete:()=>console.log("Req complted")
+//      })
+//  }
 
  cancelRegisterMode(event:boolean){
 this.registerMode=event;
