@@ -1,0 +1,13 @@
+<div class="card mb-4" *ngIf="member">
+<div class="card-img-wrapper">
+    <img src="{{member.photoUrl}}" class="card-img-top" alt="{{member.knownAs}}"/>
+</div>
+<div class="card-body p-1">
+<h6>
+    <i class="fa fa-user me-2">
+        {{member.knownAs}}
+    </i>
+</h6>
+</div>
+<p class="text-centre text-muted card-text">{{member.city}}</p>
+</div>
