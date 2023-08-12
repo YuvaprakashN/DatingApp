@@ -41,8 +41,12 @@ constructor(private memberService:MembersService,private accountService:AccountS
   }
 
   updateMember(){
-    console.log(this.member);
-this.toastrService.success("Progfile updated")    ;
+    this.memberService.updateMember(this.editForm?.value).subscribe({
+      next: _ => {
+        this.toastrService.success('Profile updated successfully');
+        this.editForm?.reset(this.member);
+      }
+    })
   }
 
 
