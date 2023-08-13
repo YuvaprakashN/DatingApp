@@ -1,4 +1,5 @@
 ﻿using DatingAppProject.Data;
+using DatingAppProject.Helpers;
 using DatingAppProject.Interfaces;
 using DatingAppProject.Services;
 using Microsoft.EntityFrameworkCore;
@@ -15,7 +16,8 @@ namespace DatingAppProject.Extensions
                 opt.UseSqlite(config.GetConnectionString("DefaultConnection"));
             });
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());    
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
             return services;
         }
     }
