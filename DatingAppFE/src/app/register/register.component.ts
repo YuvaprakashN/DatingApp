@@ -27,9 +27,9 @@ export class RegisterComponent {
 
   initializeForm() {
     this.registerForm = new FormGroup({
-      username: new FormControl(),
-      password: new FormControl(),
-      confirmPassword: new FormControl()
+      username: new FormControl('',[Validators.required]),
+      password: new FormControl('',[Validators.required,Validators.minLength(3),Validators.maxLength(8)]),
+      confirmPassword: new FormControl('',[Validators.required,Validators.minLength(3),Validators.maxLength(8)])
     });
     
     

@@ -34,4 +34,11 @@
         <button class="btn btn-success me-2" type="submit">Register</button>
         <button class="btn btn-default" type="button" (click)="cancel()">Cancel</button>
     </div>
+
+    <div class="mb-3">
+
+        <p>form value: {{registerForm.value | json}}</p>
+        <p>form status: {{registerForm.status}}</p>
+
+    </div>
 </form>
