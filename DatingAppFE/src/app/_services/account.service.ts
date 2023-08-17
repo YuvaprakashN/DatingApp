@@ -20,7 +20,8 @@ private currentUserSource = new BehaviorSubject<User | null>(null);
       map((res:User)=> {
       const user=res;
       if(user)
-      localStorage.setItem("user",JSON.stringify(user));
+      // localStorage.setItem("user",JSON.stringify(user));
+      this.setCurrentUser(user);
       this.currentUserSource.next(user);
     }));
   }
@@ -29,7 +30,8 @@ private currentUserSource = new BehaviorSubject<User | null>(null);
     return this.http.post<User>(this.baseUrl + 'account/register', model).pipe(
       map((user:User) => {
         if (user) {
-          localStorage.setItem('user', JSON.stringify(user));
+          // localStorage.setItem('user', JSON.stringify(user));
+          this.setCurrentUser(user);
           this.currentUserSource.next(user);
         }
       })
@@ -37,7 +39,8 @@ private currentUserSource = new BehaviorSubject<User | null>(null);
   } 
 
   setCurrentUser(user: User) {
-    console.log("New User Set: "+user);
+    //console.log("New User Set: "+user);
+    localStorage.setItem('user', JSON.stringify(user));
     this.currentUserSource.next(user);
   }
 

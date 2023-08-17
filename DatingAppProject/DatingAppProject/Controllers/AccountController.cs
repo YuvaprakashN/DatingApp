@@ -44,7 +44,8 @@ namespace DatingAppProject.Controllers
             return new UserDto
             {
                 Username = user.UserName,
-                Token = _tokenService.CreateToken(user)
+                Token = _tokenService.CreateToken(user),
+
             }; 
         }
 
@@ -52,7 +53,7 @@ namespace DatingAppProject.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<UserDto>> login (LoginDto login)
         {
-            var user = await _context.Users.SingleOrDefaultAsync(u => u.UserName == login.UserNAme);
+            var user = await _context.Users.Include(p => p.Photos).SingleOrDefaultAsync(u => u.UserName == login.UserNAme);
             if (user == null) return Unauthorized("Invalid UserName");
             using var hmac = new HMACSHA512(user.PasswordSalt);
 
@@ -65,7 +66,8 @@ namespace DatingAppProject.Controllers
             return new UserDto
             {
                 Username = user.UserName,
-                Token = _tokenService.CreateToken(user)
+                Token = _tokenService.CreateToken(user),
+                PhotoUrl = user.Photos.FirstOrDefault(x => x.IsMain)?.Url
             };
         }
 
