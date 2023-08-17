@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { AccountService } from '../_services/account.service';
 
@@ -18,7 +18,7 @@ export class RegisterComponent {
 // @Input() userFromHomeComp:any;
 @Output() cancelRegisterEmitter=new EventEmitter();
 
-  constructor(private accountService:AccountService,private toastr:ToastrService) { }
+  constructor(private accountService:AccountService,private toastr:ToastrService,private fb:FormBuilder ) { }
 
   ngOnInit(): void {
     this.initializeForm();
@@ -26,10 +26,10 @@ export class RegisterComponent {
 
 
   initializeForm() {
-    this.registerForm = new FormGroup({
-      username: new FormControl('',[Validators.required]),
-      password: new FormControl('',[Validators.required,Validators.minLength(3),Validators.maxLength(8)]),
-      confirmPassword: new FormControl('',[Validators.required,this.matchValues("password")])
+    this.registerForm = this.fb.group({
+      username: ['',[Validators.required]],
+      password: ['',[Validators.required,Validators.minLength(3),Validators.maxLength(8)]],
+      confirmPassword: ['',[Validators.required,this.matchValues("password")]]
     });
     this.registerForm.controls['password'].valueChanges.subscribe({
       next:()=>this.registerForm.controls["confirmPassword"].updateValueAndValidity()
