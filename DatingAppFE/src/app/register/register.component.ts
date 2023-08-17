@@ -39,7 +39,7 @@ export class RegisterComponent {
   matchValues(matchTo:string){
 
     return(control:AbstractControl)=>{
-      return control.value===control?.parent?.get(matchTo)?.value?null:{isMatching:true}
+      return control.value===control?.parent?.get(matchTo)?.value?null:{noMatching:true}
     }
 
   }
