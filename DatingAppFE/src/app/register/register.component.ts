@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { AccountService } from '../_services/account.service';
 
@@ -29,13 +29,20 @@ export class RegisterComponent {
     this.registerForm = new FormGroup({
       username: new FormControl('',[Validators.required]),
       password: new FormControl('',[Validators.required,Validators.minLength(3),Validators.maxLength(8)]),
-      confirmPassword: new FormControl('',[Validators.required,Validators.minLength(3),Validators.maxLength(8)])
+      confirmPassword: new FormControl('',[Validators.required,this.matchValues("password")])
     });
-    
-    
-   
+    this.registerForm.controls['password'].valueChanges.subscribe({
+      next:()=>this.registerForm.controls["confirmPassword"].updateValueAndValidity()
+    });   
   }
 
+  matchValues(matchTo:string){
+
+    return(control:AbstractControl)=>{
+      return control.value===control?.parent?.get(matchTo)?.value?null:{isMatching:true}
+    }
+
+  }
 
   registerToggle() {
     this.registerMode = !this.registerMode;
