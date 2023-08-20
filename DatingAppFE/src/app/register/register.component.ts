@@ -18,10 +18,12 @@ export class RegisterComponent {
 // @Input() userFromHomeComp:any;
 @Output() cancelRegisterEmitter=new EventEmitter();
 
+maxDate: Date = new Date();
   constructor(private accountService:AccountService,private toastr:ToastrService,private fb:FormBuilder ) { }
 
   ngOnInit(): void {
     this.initializeForm();
+    this.maxDate.setFullYear(this.maxDate.getFullYear() - 18);
   }
 
 
