@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -11,7 +12,7 @@ export class HomeComponent {
   registerMode = false;
   users: any;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private router:Router ) { }
 
   ngOnInit(): void {
     console.log("Home Compoennt Loaded");
@@ -20,7 +21,10 @@ export class HomeComponent {
   }
 
   registerToggle() {
-    this.registerMode = !this.registerMode;
+
+    var username:String='kirkland';
+    this.router.navigate(['/members',username,'detail'])
+    //this.registerMode = !this.registerMode;
   }
 
   

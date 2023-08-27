@@ -18,7 +18,7 @@ const routes: Routes = [
 {path:'',component:HomeComponent},
 {path:'',runGuardsAndResolvers:'always',canActivate:[authGuard],children:[
   {path:'members',component:MemberListComponent},
-  {path:'members/:username',component:MemberDetailComponent},
+  {path:'members/:username/detail',component:MemberDetailComponent},
   {path:'member/edit',component:MemberEditComponent,canDeactivate: [preventUnsavedChangesGuard]},
   {path:'lists',component:ListsComponent},
   {path:'messages',component:MessagesComponent}
