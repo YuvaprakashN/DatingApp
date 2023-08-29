@@ -17,8 +17,34 @@ export class AppComponent implements OnInit{
   constructor(private http:HttpClient,private accountService:AccountService){}
   ngOnInit(): void {
     
+
+    console.log("APP START");
+
+    let St:string="String Type";
+   console.log("1: "+    St.toUpperCase());
+
+   let at:any="any type";
+   //at.toUpper();
+   console.log("2: "+at.toUpperCase());
+
+   //let ot:Object="obj type";
+   //ot.toUpperCase();
+
+
+    console.log("APP END");
+    
+    
+
+
+
+
   //  this.getUsers();
     this.setCurrentUser();
+    
+    
+   
+
+
   }
 
 
