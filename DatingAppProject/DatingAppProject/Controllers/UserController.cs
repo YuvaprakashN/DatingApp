@@ -32,11 +32,17 @@ namespace DatingAppProject.Controllers
         
         public async Task<ActionResult<PagedList<MemberDto>>> GetUsers([FromQuery]UserParams userParams)
         {
-            /*var users = await _userRepository.GetMembersAsync();
-            var userToReturn=_mapper.Map<IEnumerable<MemberDto>>(users);
+            var user = await _userRepository.GetMemberAsync(User.GetUsername());
+            userParams.CurrentUserName = user.UserName;
+            /*var userToReturn=_mapper.Map<IEnumerable<MemberDto>>(users);
 */
 
-            var users=await _userRepository.GetMembersAsync(userParams);
+            if (string.IsNullOrEmpty(userParams.Gender))
+                userParams.Gender = user.Gender == "male" ? "female" : "male";
+
+
+
+            var users =await _userRepository.GetMembersAsync(userParams);
             Response.AddPaginationHeader(new PaginationHeader(users.CurrentPage, users.PageSize,users.TotalCount,users.TotalPages));
 
 
@@ -48,6 +54,8 @@ namespace DatingAppProject.Controllers
 
         public async Task<ActionResult<MemberDto>> GetUser(string username)
         {
+
+
             //var user =await _userRepository.GetUserByUsernameAsync(username);
             return await _userRepository.GetMemberAsync(username);
         }
