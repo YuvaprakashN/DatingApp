@@ -15,12 +15,16 @@
                     <p>{{member.age}}</p>
                 </div>
                 <div>
+                    <strong>Gender:</strong>
+                    <p>{{member.gender}}</p>
+                </div>
+                <div>
                     <strong>Last active:</strong>
-                    <p>{{member.lastActive}}</p>
+                    <p>{{member.lastActive + 'z' | timeago}}</p>
                 </div>
                 <div>
                     <strong>Member since:</strong>
-                    <p>{{member.created}}</p>
+                    <p>{{member.created | timeago}}</p>
                 </div>
             </div>
             <div class="card-footer">

@@ -20,6 +20,7 @@ export class MemberListComponent implements OnInit{
   pagination: Pagination | undefined;
   userParams: UserParams | undefined;
   user:User|undefined;
+  genderList = [{ value: 'male', display: 'Males' }, { value: 'female', display: 'Females' }]
 
   constructor(private memberService:MembersService,private accountservice:AccountService ){
 
@@ -50,6 +51,11 @@ export class MemberListComponent implements OnInit{
        error:e=>console.log(e)
      })
    }
+   resetFilters() {
+     if(this.user)
+    this.userParams = new UserParams(this.user);
+    this.loadMembers();
+  }
 
    pageChanged(event:any){
 
