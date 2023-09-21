@@ -12,9 +12,10 @@ namespace DatingAppProject.Helpers
 
             if (!actionExecutedContext.HttpContext.User.Identity.IsAuthenticated) return;
 
-            var userName= actionExecutedContext.HttpContext.User.GetUsername();
+           
+            int userId = actionExecutedContext.HttpContext.User.GetUserId();
             var repo = actionExecutedContext.HttpContext.RequestServices.GetRequiredService<IUserRepository>();
-            var user = await repo.GetUserByUsernameAsync(userName);
+            var user = await repo.GetUserByIdAsync(userId);
             user.LastActive = DateTime.UtcNow;
             await repo.SaveAllAsync();
 
