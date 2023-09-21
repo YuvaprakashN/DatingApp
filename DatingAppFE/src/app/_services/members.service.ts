@@ -13,6 +13,7 @@ export class MembersService {
 
   baseUrl=environment.apiUrl;
   members: Member[] = [];
+  memberCache = new Map();
 //paginationResult:PaginatedResult<Member[]>=new PaginatedResult<Member[]>();
 //userParams: UserParams | undefined;
 
@@ -29,7 +30,9 @@ export class MembersService {
   //   params=params.append('pageNumber',page);
   //   params=params.append('pageSize',itemPerPage);
   // }
+  const response = this.memberCache.get(Object.values(userParams).join('-'));
 
+  if (response) return of(response);
   let params=this.getPaginationHeaders(userParams.pageNumber,userParams.pageSize);
   params = params.append('minAge', userParams.minAge);
   params = params.append('maxAge', userParams.maxAge);
@@ -53,7 +56,12 @@ export class MembersService {
 //       return this.paginationResult;
 //     })
  // )
- return this.getPaginatedResult<Member[]>(this.baseUrl + 'users', params);
+ return this.getPaginatedResult<Member[]>(this.baseUrl + 'users', params).pipe(
+  map(response => {
+    this.memberCache.set(Object.values(userParams).join('-'), response);
+    return response;
+  })
+)
   }
 
   
