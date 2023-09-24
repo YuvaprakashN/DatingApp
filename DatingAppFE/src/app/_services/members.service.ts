@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { PreloadingStrategy } from '@angular/router';
 import { map, of, take } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Member } from '../_models/Member';
@@ -150,6 +151,16 @@ export class MembersService {
     return this.http.delete(this.baseUrl + 'users/delete-photo/' + photoId);
   }
 
+  addLike(username: string) {
+    return this.http.post(this.baseUrl + 'likes/' + username, {});
+  }
+  
+  getLikes(predicate: string) {
+    
+  
+    return this.http.get(this.baseUrl + 'likes?predicate='+ predicate);
+  }
+  
 //   getOptions(){
 //     var userString=localStorage.getItem("user");
 //     console.log(userString);
