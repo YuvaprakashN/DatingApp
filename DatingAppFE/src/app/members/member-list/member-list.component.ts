@@ -22,6 +22,8 @@ export class MemberListComponent implements OnInit{
   user:User|undefined;
   genderList = [{ value: 'male', display: 'Males' }, { value: 'female', display: 'Females' }]
 
+  
+
   constructor(private memberService:MembersService,private accountservice:AccountService ){
 
     this.userParams = this.memberService.getUserParams();

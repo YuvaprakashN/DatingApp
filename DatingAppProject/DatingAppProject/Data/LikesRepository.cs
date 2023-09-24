@@ -1,8 +1,10 @@
 ﻿using DatingAppProject.DTOs;
 using DatingAppProject.Entities;
 using DatingAppProject.Extensions;
+using DatingAppProject.Helpers;
 using DatingAppProject.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace DatingAppProject.Data
 {
@@ -26,21 +28,21 @@ namespace DatingAppProject.Data
 
 
 
-        public async Task<IEnumerable<LikeDto>> GetUserLikes(string predicate, int userId)
+        public async Task<PagedList<LikeDto>> GetUserLikes(LikesParams likesParams)
         {
 
             var users = _dataContext.Users.OrderBy(u => u.UserName).AsQueryable();
             var likes = _dataContext.Likes.AsQueryable();
 
-            if (predicate== "liked")
+            if (likesParams.Predicate == "liked")
             {
-                likes = likes.Where(like => like.SourceUserId == userId);
+                likes = likes.Where(like => like.SourceUserId == likesParams.UserId);
                 users = likes.Select(like => like.TargetUser);
             }
 
-            if (predicate== "likedBy")
+            if (likesParams.Predicate == "likedBy")
             {
-                likes = likes.Where(like => like.TargetUserId == userId);
+                likes = likes.Where(like => like.TargetUserId == likesParams.UserId);
                 users = likes.Select(like => like.SourceUser);
             }
 
@@ -52,9 +54,11 @@ namespace DatingAppProject.Data
                 PhotoUrl = user.Photos.FirstOrDefault(x => x.IsMain).Url,
                 City = user.City,
                 Id = user.Id
-            }).ToList();
+            });
 
-            return likedUsers;
+
+
+            return await PagedList<LikeDto>.CreateAsync(likedUsers, likesParams.PageNumber, likesParams.PageSize);
 
         }
 

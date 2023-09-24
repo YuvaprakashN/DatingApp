@@ -46,12 +46,15 @@ namespace DatingAppProject.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<LikeDto>>> GetUserLikes(string predicate)
+        public async Task<ActionResult<PagedList<LikeDto>>> GetUserLikes([FromQuery] LikesParams likesParams)
         {
+            likesParams.UserId = User.GetUserId();
 
-            var users = await _likesRepository.GetUserLikes(predicate,(int)User.GetUserId());
+            var users = await _likesRepository.GetUserLikes(likesParams);
 
-           
+            Response.AddPaginationHeader(new PaginationHeader(users.CurrentPage, users.PageSize,
+                users.TotalCount, users.TotalPages));
+
             return Ok(users);
         }
     }
