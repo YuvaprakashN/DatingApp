@@ -9,7 +9,10 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { TimeagoModule } from "ngx-timeago";
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
-
+import {VgCoreModule} from '@videogular/ngx-videogular/core';
+import {VgControlsModule} from '@videogular/ngx-videogular/controls';
+import {VgOverlayPlayModule} from '@videogular/ngx-videogular/overlay-play';
+import {VgBufferingModule} from '@videogular/ngx-videogular/buffering';
 
 
 
@@ -29,6 +32,11 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
 
     TimeagoModule.forRoot(),
     ButtonsModule.forRoot(),
+    VgCoreModule,
+    VgControlsModule,
+    VgOverlayPlayModule,
+    VgBufferingModule
+
   ],
   exports:[
     BsDropdownModule,
@@ -39,7 +47,11 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
     BsDatepickerModule,
     PaginationModule,
     TimeagoModule,
-    ButtonsModule
+    ButtonsModule,
+    VgCoreModule,
+    VgControlsModule,
+    VgOverlayPlayModule,
+    VgBufferingModule
   ]
 })
 export class SharedModule { }

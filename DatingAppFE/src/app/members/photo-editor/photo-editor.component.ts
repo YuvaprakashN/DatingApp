@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
 import { take } from 'rxjs';
 import { Member } from 'src/app/_models/Member';
@@ -93,4 +93,54 @@ export class PhotoEditorComponent {
   }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  name = "Angular";
+  @ViewChild("videoPlayer", { static: false }) videoplayer!: ElementRef;
+  isPlay: boolean = false;
+  toggleVideo(event: any) {
+    this.videoplayer.nativeElement.play();
+  }
+  playPause() {
+    var myVideo: any = document.getElementById("my_video_1");
+    if (myVideo.paused) myVideo.play();
+    else myVideo.pause();
+  }
+
+  makeBig() {
+    var myVideo: any = document.getElementById("my_video_1");
+    myVideo.width = 560;
+  }
+
+  makeSmall() {
+    var myVideo: any = document.getElementById("my_video_1");
+    myVideo.width = 320;
+  }
+
+  makeNormal() {
+    var myVideo: any = document.getElementById("my_video_1");
+    myVideo.width = 420;
+  }
+
+  skip(value:any) {
+    let video: any = document.getElementById("my_video_1");
+    video.currentTime += value;
+  }
+
+  restart() {
+    let video: any = document.getElementById("my_video_1");
+    video.currentTime = 0;
+  }
 }
