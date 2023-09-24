@@ -62,7 +62,7 @@ namespace DatingAppProject.Data
         {
             return await _context.Users
                 .Include(p => p.Photos)
-                .SingleOrDefaultAsync(x => x.UserName == username);
+                .SingleOrDefaultAsync(x => x.UserName.ToLower() == username.ToLower());
         }
 
         public async Task<IEnumerable<AppUser>> GetUsersAsync()

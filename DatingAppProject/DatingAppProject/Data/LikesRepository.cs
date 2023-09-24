@@ -26,7 +26,7 @@ namespace DatingAppProject.Data
 
 
 
-        public Task<IEnumerable<LikeDto>> GetUserLikes(string predicate, int userId)
+        public async Task<IEnumerable<LikeDto>> GetUserLikes(string predicate, int userId)
         {
 
             var users = _dataContext.Users.OrderBy(u => u.UserName).AsQueryable();
@@ -52,7 +52,9 @@ namespace DatingAppProject.Data
                 PhotoUrl = user.Photos.FirstOrDefault(x => x.IsMain).Url,
                 City = user.City,
                 Id = user.Id
-            });
+            }).ToList();
+
+            return likedUsers;
 
         }
 
