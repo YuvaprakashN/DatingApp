@@ -23,12 +23,12 @@ namespace DatingAppProject.Data
             _context.Messages.Add(message);
         }
 
-        void IMessageRepository.DeleteMessage(Message message)
+        async void IMessageRepository.DeleteMessage(Message message)
         {
             _context.Messages.Remove(message);
         }
 
-        Task<Message> IMessageRepository.GetMessage(int id)
+        async Task<Message> IMessageRepository.GetMessage(int id)
         {
             return await _context.Messages.FindAsync(id);
         }
@@ -43,7 +43,7 @@ namespace DatingAppProject.Data
             throw new NotImplementedException();
         }
 
-        Task<bool> IMessageRepository.SaveAllAsync()
+        async Task<bool> IMessageRepository.SaveAllAsync()
         {
             return await _context.SaveChangesAsync() > 0;
         }

@@ -25,9 +25,10 @@ export class AppComponent implements OnInit{
 
    let at:any="any type";
    //at.toUpper();
+   //console.log("2: "+at.toUpper());
    console.log("2: "+at.toUpperCase());
 
-   //let ot:Object="obj type";
+   let ot:Object="obj type";
    //ot.toUpperCase();
 
 
