@@ -1,4 +1,5 @@
-﻿using DatingAppProject.DTOs;
+﻿using AutoMapper;
+using DatingAppProject.DTOs;
 using DatingAppProject.Entities;
 using DatingAppProject.Helpers;
 using DatingAppProject.Interfaces;
